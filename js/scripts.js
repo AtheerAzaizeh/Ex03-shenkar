@@ -38,15 +38,20 @@ function EnterName() {
     var username = input.value;
 
     if (username) {
-      localStorage.setItem('username', username);
-      myName = localStorage.getItem('username');
-      button.disabled = 'false';
-      input.disabled = 'false';
-      console.log('Username from localStorage:', username);
-      count = 0;
-      for (let index = 0; index < myName.length-1; index++) {
-        addRectangle();
-        
+      if(!checkerswitch)
+        {
+          return null;
+        }
+        else{
+            localStorage.setItem('username', username);
+            myName = localStorage.getItem('username');
+            button.disabled = 'false';
+            input.disabled = 'false';
+            console.log('Username from localStorage:', username);
+            count = 0;
+            for (let index = 0; index < myName.length; index++) {
+            addRectangle();
+            }
       }
     } else {
       alert('Please Enter Name');
@@ -87,7 +92,7 @@ window.onload = () => {
     var button = event.target;
 
     if (button === ButtonAdd || button === ButtonSub) {
-      let NextColor = chooseRectangleColor();
+      let NextColor = [localStorage.getItem('color+') , chooseRectangleColor()];
       button.style.backgroundColor =
         button === ButtonAdd ? NextColor[0] : NextColor[1];
       button.style.transition = 'all 0.2s';
@@ -134,7 +139,7 @@ function initRectangles() {
     }
 
     div.innerHTML = Name[count];
-    
+    div.style.display = 'none';
     count++;
 
     wrapper.appendChild(div);
@@ -156,7 +161,8 @@ function chooseRectangleColor() {
   if (divs.length >= 0) {
     var color = Colors[divs.length % Colors.length];
     divs[divs.length - 1].style.backgroundColor = color;
-    return [Colors[(divs.length + 1) % Colors.length], color];
+    localStorage.setItem('color+' ,Colors[(divs.length + 1) % Colors.length]);
+    return color;
   } else {
     console.warn("No elements with class 'rectangle' found.");
     return null;
@@ -193,6 +199,7 @@ function switchRectanglesSongs() {
     initSongs();
     console.log('Json File', true);
     console.log('Rectangles Page', false);
+
   } else {
     ButtonSwitch.innerHTML = 'Switch To Songs';
     ButtonAdd.style.pointerEvents = 'all';
