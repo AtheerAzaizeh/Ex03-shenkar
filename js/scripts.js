@@ -1,7 +1,8 @@
+var myName = 'Atheer Azaizeh';
 let Colors = ['purple', 'green', 'orange', 'blue'];
 var wrapper = document.getElementById('wrapper');
 var count = 0;
-var s = true;
+var checkerswitch = true;
 
 var ButtonAdd = document.getElementById('ButPlus');
 var ButtonSub = document.getElementById('ButMinus');
@@ -38,9 +39,15 @@ function EnterName() {
 
     if (username) {
       localStorage.setItem('username', username);
+      myName = localStorage.getItem('username');
       button.disabled = 'false';
       input.disabled = 'false';
       console.log('Username from localStorage:', username);
+      count = 0;
+      for (let index = 0; index < myName.length-1; index++) {
+        addRectangle();
+        
+      }
     } else {
       alert('Please Enter Name');
     }
@@ -105,6 +112,10 @@ window.onload = () => {
   }
 
   EnterName();
+  for (let index = 0; index < myName.length-1; index++) {
+    addRectangle();
+    
+  }
 };
 
 function initRectangles() {
@@ -114,35 +125,19 @@ function initRectangles() {
   div.style.margin = '20px 0px 20px 20px';
   div.style.width = '150px';
   div.style.height = '150px';
-  console.log('Create Rectangle', div);
-  var Name = localStorage.getItem('username');
-
-  if (Name) {
-    var NameWithoutSpace = Name.replace(/\s+/g, '');
-    var NameArray = NameWithoutSpace.split('');
-
-    while (count >= NameArray.length) {
+  console.log('Create Rectangle ' + count, div);
+  var myNameWithoutSpace = myName.replace(/\s+/g, '');
+  var Name = myNameWithoutSpace.split('');
+  
+    while (count >= Name.length) {
       count = 0;
     }
 
-    div.innerHTML = NameArray[count];
-    div.style.display = 'none';
+    div.innerHTML = Name[count];
+    
     count++;
-  } else {
-    var myName = 'Atheer Azaizeh';
-    var myNameWithoutSpace = myName.replace(/\s+/g, '');
-    var MyName = myNameWithoutSpace.split('');
 
-    while (count >= MyName.length) {
-      count = 0;
-    }
-
-    div.innerHTML = MyName[count];
-    div.style.display = 'none';
-    count++;
-  }
-
-  wrapper.appendChild(div);
+    wrapper.appendChild(div);
 }
 
 function initSongs() {
@@ -179,7 +174,7 @@ function subtractRectangle() {
   var divs = document.querySelectorAll('.rectangle');
   if (divs.length > 0) {
     var LastDiv = divs[divs.length - 1];
-    console.log('Delete Rectangle', LastDiv);
+    console.log('Delete Rectangle ' + (divs.length-1), LastDiv);
     LastDiv.parentNode.removeChild(LastDiv);
     count--;
     if (count < 0) {
@@ -191,7 +186,7 @@ function subtractRectangle() {
 }
 
 function switchRectanglesSongs() {
-  if (s) {
+  if (checkerswitch) {
     ButtonSwitch.innerHTML = 'Switch To Rectangles';
     ButtonAdd.style.pointerEvents = 'none';
     ButtonSub.style.pointerEvents = 'none';
@@ -217,7 +212,7 @@ function switchRectanglesSongs() {
     });
   }
 
-  s = !s;
+  checkerswitch = !checkerswitch;
 }
 
 function populateSongsInList(data) {
