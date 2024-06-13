@@ -1,3 +1,9 @@
 {
-
+    "title": "Songs List",
+    "songs": [
+        { "id": 1, "artist": "Del Shannon", "title": "Runaway" },
+        { "id": 2, "artist": "Vanessa Carlton", "title": "A Thousand Miles" },
+        { "id": 3, "artist": "Fetty Wap", "title": "Trap Queen" } ,
+        { "id": 4, "artist": " Janet Jackson", "title": "Miss You Much" }
+    ]
 }
