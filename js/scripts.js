@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 var myName = 'Atheer Azaizeh';
 let Colors = ['purple', 'green', 'orange', 'blue'];
 var wrapper = document.getElementById('wrapper');
@@ -48,6 +49,10 @@ function EnterName() {
             button.disabled = 'false';
             input.disabled = 'false';
             console.log('Username from localStorage:', username);
+            var rectangles = document.querySelectorAll('.rectangle');
+            rectangles.forEach(function(rect) {
+              rect.remove();
+            });
             count = 0;
             for (let index = 0; index < myName.length; index++) {
             addRectangle();
@@ -253,3 +258,4 @@ function populateSongsInList(data) {
   ul.style.listStyleType = 'none';
   ul.style.color = 'white';
 }
+});
