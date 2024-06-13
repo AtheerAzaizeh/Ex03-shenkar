@@ -46,7 +46,7 @@ var ButtonSwitch = document.getElementById("ButSwitch");
                     localStorage.setItem('username' , username);
                     button.disabled = 'false';
                     input.disabled = 'false';
-                    
+                    console.log("Username from localStorage:", username);
             }
 
             else
@@ -82,7 +82,7 @@ window.onload = () => {
 
         if (button === ButtonAdd || button === ButtonSub) 
         {
-            var NextColor = chooseRectangleColor();
+            let NextColor = chooseRectangleColor();
             button.style.backgroundColor = button === ButtonAdd ? NextColor[0] : NextColor[1];
             button.style.transition = 'all 0.2s';
             button.style.padding = '18px';
@@ -127,10 +127,9 @@ function initRectangles()
     div.style.margin = '20px 0px 20px 20px';
     div.style.width = '150px';
     div.style.height = '150px';
-
+    console.log('Create Rectangle' , div);
     var Name = localStorage.getItem('username');
     
-
     if (Name)
         {
         var NameWithoutSpace = Name.replace(/\s+/g, '');
@@ -182,10 +181,17 @@ function initSongs()
 function chooseRectangleColor()
 {
     var divs = document.querySelectorAll('.rectangle');
-    var color = Colors[divs.length % Colors.length];
-    divs[divs.length - 1].style.backgroundColor = color;
-
-    return [Colors[(divs.length + 1) % Colors.length] , color];
+    if (divs.length >= 0)
+    {
+        var color = Colors[divs.length % Colors.length];
+        divs[divs.length - 1].style.backgroundColor = color;
+        return [Colors[(divs.length + 1) % Colors.length] , color];
+    }
+    else
+    {
+        console.warn("No elements with class 'rectangle' found.");
+        return null;
+    }
 }
 
 function addRectangle() 
@@ -202,8 +208,9 @@ function subtractRectangle()
     if (divs.length > 0)
         {
             var LastDiv = divs[divs.length - 1];
+            console.log("Delete Rectangle" , LastDiv);
             LastDiv.parentNode.removeChild(LastDiv);
-            count--;
+            count--;            
             if(count < 0)
                 {
                     count = 0;
@@ -223,6 +230,8 @@ function switchRectanglesSongs()
             ButtonAdd.style.pointerEvents = 'none';
             ButtonSub.style.pointerEvents = 'none';
             initSongs();
+            console.log("Json File" , true);
+            console.log("Rectangles Page" , false);
         }
     else
         {
@@ -231,6 +240,9 @@ function switchRectanglesSongs()
             ButtonSub.style.pointerEvents = 'all';
 
             var allElements = wrapper.querySelectorAll('*');
+
+            console.log("Json File" , false);
+            console.log("Rectangles Page" , true);
 
             allElements.forEach(function(element) 
             {
@@ -259,7 +271,7 @@ function populateSongsInList(data)
     });
     
     var title = document.createElement('h1');
-
+    console.log("Create h1 = " , title);
     title.style.color = 'white';
     title.style.textAlign = 'center';
     title.style.marginBottom = '13px';
@@ -273,9 +285,11 @@ function populateSongsInList(data)
     data.songs.forEach(function(song)
     {
         var li = document.createElement('li');
+        console.log("Create li" , li);
         li.textContent = `${song.id} - ${song.artist} - ${song.title}`;
         ul.appendChild(li);
     });
+    console.log("Create ul" , ul);
 
     wrapper.appendChild(ul);
 
