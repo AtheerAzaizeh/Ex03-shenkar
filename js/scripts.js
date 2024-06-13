@@ -54,7 +54,21 @@ var ButtonSwitch = document.getElementById("ButSwitch");
                     alert('Please Enter Name');
             }
         }
-       
+       input.addEventListener('keypress' , EnterPress);
+
+       function EnterPress(event)
+       {
+        const enterkey = event.key;
+
+        if(enterkey === "Enter")
+            {
+                click();
+            }
+        else
+        {
+            return null;
+        }
+       }
     }
 
 window.onload = () => {
