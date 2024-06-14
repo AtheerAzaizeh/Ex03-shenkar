@@ -1,60 +1,63 @@
-
-let Colors = ["purple" , "green" , "orange" , "blue"];
-var wrapper = document.getElementById("wrapper");
-var count = 0;
-var s = true;
-
-var ButtonAdd = document.getElementById('ButPlus');
-var ButtonSub = document.getElementById("ButMinus");
-var ButtonSwitch = document.getElementById("ButSwitch");
-
-   function EnterName()
-    {
-        var input = document.createElement('input');
-        var button = document.createElement('button');
-        var Header = document.querySelector('header');
-        var div = document.createElement('div');
-
-        input.placeholder = "Enter Your Name";
-        input.type = 'text';
-        input.style.height = '35px';
-        input.style.padding = '7px';
-        
-
-        button.style.height = '35px';
-        button.style.margin = '7px';
-        button.style.padding = '7px';
-        button.textContent = 'Submit';
-        button.style.cursor = 'pointer';
-
-        div.style.position = 'absolute';
-        div.style.marginRight = '50%';
-        
-        div.appendChild(input);
-        div.appendChild(button);
-        Header.appendChild(div);
-
-        
-        button.addEventListener('click' , click);
-        
-        function click()
-        {
-            var username = input.value;
-
-            if(username)
-            {
-                    localStorage.setItem('username' , username);
-                    button.disabled = 'false';
-                    input.disabled = 'false';
-                    
-            }
-
-            else
-            {
-                    alert('Please Enter Name');
-            }
+document.addEventListener('DOMContentLoaded', function() {
+  var myName = 'Atheer Azaizeh';
+  let Colors = ['purple', 'green', 'orange', 'blue'];
+  var wrapper = document.getElementById('wrapper');
+  var count = 0;
+  var checkerswitch = true;
+  
+  var ButtonAdd = document.getElementById('ButPlus');
+  var ButtonSub = document.getElementById('ButMinus');
+  var ButtonSwitch = document.getElementById('ButSwitch');
+  
+  function EnterName() {
+    var input = document.createElement('input');
+    var button = document.createElement('button');
+    var Header = document.querySelector('header');
+    var div = document.createElement('div');
+  
+    input.placeholder = 'Enter Your Name';
+    input.type = 'text';
+    input.style.height = '35px';
+    input.style.padding = '7px';
+  
+    button.style.height = '35px';
+    button.style.margin = '7px';
+    button.style.padding = '7px';
+    button.textContent = 'Submit';
+    button.style.cursor = 'pointer';
+  
+    div.style.position = 'absolute';
+    div.style.marginRight = '50%';
+  
+    div.appendChild(input);
+    div.appendChild(button);
+    Header.appendChild(div);
+  
+    button.addEventListener('click', click);
+  
+    function click() {
+      var username = input.value;
+  
+      if (username) {
+        if(!checkerswitch)
+          {
+            return null;
+          }
+          else{
+              localStorage.setItem('username', username);
+              myName = localStorage.getItem('username');
+              button.disabled = 'false';
+              input.disabled = 'false';
+              console.log('Username from localStorage:', username);
+              clearRectangles();
+              count = 0;
+              for (let index = 0; index < myName.length; index++) {
+              addRectangle();
+              }
         }
-       
+      } else {
+        alert('Please Enter Name');
+      }
     }
 
 window.onload = () => {
@@ -96,22 +99,17 @@ window.onload = () => {
             button.style.padding = '18px';
         }
     }
-
-    function mouseout(event)
-    {
-        var button = event.target;
-
-        if(button == ButtonAdd || button == ButtonSub)
-            {
-                button.style.backgroundColor = 'aliceblue';
-                button.style.padding = '15px';
-            }
-
-        else if(button == ButtonSwitch)
-            {
-                button.style.backgroundColor = 'aliceblue';
-                button.style.padding = '15px';
-            }
+  
+    function mouseout(event) {
+      var button = event.target;
+  
+      if (button == ButtonAdd || button == ButtonSub) {
+        button.style.backgroundColor = 'aliceblue';
+        button.style.padding = '15px';
+      } else if (button == ButtonSwitch) {
+        button.style.backgroundColor = 'aliceblue';
+        button.style.padding = '15px';
+      }
     }
 
     
